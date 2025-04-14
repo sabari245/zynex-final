@@ -76,7 +76,7 @@ const HeroSection = () => {
             className="text-neutral-400 text-lg md:text-xl leading-relaxed"
           >
             Your brand is special, not just another template. Imagine designing
-            your perfect online Ecommerce Store the Sckyrocker your sales.
+            your perfect online Ecommerce Store the Sckyrocket your sales.
             You're in charge, and it costs way less in the long run.
           </motion.p>
         </div>

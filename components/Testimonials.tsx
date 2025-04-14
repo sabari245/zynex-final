@@ -50,7 +50,7 @@ const Testimonials = () => {
                         {/* Avatar hidden on mobile, shown on md+ */}
                         <Image
                             className="rounded-xl w-full h-auto object-cover" // Added w-full and h-auto
-                            src="/images/testimonial-nicole.jpg" // Path from public folder
+                            src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Path from public folder
                             alt="Nicole Grazioso"
                             width={500} // Example width, adjust as needed
                             height={500} // Example height, adjust as needed based on aspect ratio
