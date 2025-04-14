@@ -2,43 +2,61 @@
 'use client';
 
 import { useEffect } from 'react';
-// It's likely you'll need the IStaticMethods interface if using Preline's API directly
+// You might need these types later if interacting directly with Preline's API
 // import type { IStaticMethods } from 'preline/preline';
 // declare global {
 //   interface Window {
 //     HSStaticMethods: IStaticMethods;
 //   }
 // }
-// Import the main Preline script
-import 'preline/preline';
 
+// DO NOT import 'preline/preline' here at the top level
 
 export default function PrelineInitializer() {
     useEffect(() => {
-        // Optionally, you might need to re-initialize specific components
-        // after navigation or dynamic content loading.
-        // The import itself might be sufficient for initial load.
-        // Example (if needed later):
-        // setTimeout(() => { // Use setTimeout to ensure DOM elements are ready
-        //   if (typeof window !== 'undefined' && window.HSStaticMethods) {
-        //     window.HSStaticMethods.autoInit();
-        //   }
-        // }, 100); // Adjust delay if necessary
+        // Dynamically import Preline here, ensuring it only runs client-side
+        import('preline/preline').then(() => {
+            // Optional: If autoInit on import isn't sufficient after navigation/updates
+            // you might need to manually trigger re-initialization.
+            // setTimeout(() => {
+            //   if (typeof window !== 'undefined' && window.HSStaticMethods) {
+            //      window.HSStaticMethods.autoInit();
+            //      console.log("Preline autoInit called");
+            //   }
+            // }, 100); // Delay might be needed
 
-        // For auto-height textarea, you might need to explicitly init or reinit
-        // after the component mounts or its value changes, if the attribute alone isn't enough.
-        const textareas = document.querySelectorAll<HTMLTextAreaElement>('[data-hs-textarea-auto-height]');
-        textareas.forEach(textarea => {
-            // Basic auto-height logic (Preline might do more)
-            textarea.style.height = 'auto'; // Reset height
-            textarea.style.height = `${textarea.scrollHeight}px`;
-            textarea.addEventListener('input', () => {
+            // --- Keep the Textarea Auto-Height Logic ---
+            // This might still be necessary if the plugin doesn't handle
+            // dynamic React updates perfectly.
+            const textareas = document.querySelectorAll<HTMLTextAreaElement>(
+                '[data-hs-textarea-auto-height]'
+            );
+            textareas.forEach((textarea) => {
+                // Initial adjustment
                 textarea.style.height = 'auto';
                 textarea.style.height = `${textarea.scrollHeight}px`;
-            }, false);
+
+                // Listener for input changes
+                const handleInput = () => {
+                    textarea.style.height = 'auto';
+                    textarea.style.height = `${textarea.scrollHeight}px`;
+                };
+
+                // Add listener only once
+                if (!(textarea as any).__hasAutoHeightListener) {
+                    textarea.addEventListener('input', handleInput, false);
+                    (textarea as any).__hasAutoHeightListener = true; // Mark as listener added
+                }
+
+                // Optional: Clean up listener on component unmount if needed,
+                // though for a root initializer it might not be critical.
+                // return () => {
+                //   textarea.removeEventListener('input', handleInput, false);
+                //   delete (textarea as any).__hasAutoHeightListener;
+                // };
+            });
+            // --- End Textarea Logic ---
         });
-
-
     }, []); // Run only once on mount
 
     return null; // This component doesn't render anything visually
