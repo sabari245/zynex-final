@@ -57,7 +57,7 @@ const HeroSection = () => {
   }, [controls, avatarControls]);
 
   return (
-    <div className="bg-neutral-900 pb-16">
+    <div className="bg-neutral-900 pb-8">
       <div className="max-w-5xl mx-auto px-4 xl:px-0 pt-24 lg:pt-32 pb-16 text-center">
         <h1 className="font-semibold text-white text-4xl md:text-5xl lg:text-6xl leading-tight">
           Discover the Smart Way to Build a
