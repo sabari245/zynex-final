@@ -4,7 +4,7 @@ import Image from 'next/image'; // Use next/image for avatars
 
 const StatsSection = () => {
     return (
-        <div className="bg-neutral-900">
+        <div className="">
             <div className="max-w-5xl px-4 xl:px-0 py-10 mx-auto">
                 <div className="border border-neutral-800 rounded-xl">
                     <div className="p-4 lg:p-8 bg-gradient-to-bl from-neutral-800 via-neutral-900 to-neutral-950 rounded-xl"> {/* Updated gradient class */}

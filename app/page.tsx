@@ -41,10 +41,11 @@ export default function HomePage() {
       <HeroSection />
       <ClientLogos />
       <CaseStudies />
-      <ComparisonSection />
-      {/* <Testimonials /> */}
-      <TestimonialsGrid />
-      <StatsSection />
+      <div className="bg-neutral-900 bg-linear-to-t from-black to-transparent">
+        <ComparisonSection />
+        <TestimonialsGrid />
+        <StatsSection />
+      </div>
 
       {/* <div className="bg-neutral-900">
         <div className="max-w-5xl px-4 xl:px-0 py-10 lg:py-20 mx-auto">

@@ -40,7 +40,7 @@ const CheckIcon = () => (
 
 const ComparisonSection = () => {
     return (
-        <div className="bg-neutral-900">
+        <div className="">
             <div className="max-w-5xl px-4 xl:px-0 py-10 lg:py-20 mx-auto">
                 {/* Title */}
                 <div className="max-w-3xl mb-10 lg:mb-14 mx-auto text-center">
@@ -57,7 +57,7 @@ const ComparisonSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
 
                     {/* Card 1: Without Us (The Old Way) */}
-                    <div className="flex flex-col bg-neutral-800 border border-neutral-700 shadow-sm rounded-xl px-6 lg:p-8 h-full"> {/* Added h-full */}
+                    <div className="flex flex-col bg-neutral-900 border border-neutral-700 shadow-sm rounded-xl px-6 lg:p-8 h-full"> {/* Added h-full */}
                         <h3 className="text-lg font-semibold text-neutral-300 mb-4">
                             Sticking to the Status Quo...
                         </h3>
@@ -73,7 +73,7 @@ const ComparisonSection = () => {
                     {/* End Card 1 */}
 
                     {/* Card 2: With Us (The Preline Way) */}
-                    <div className="flex flex-col bg-neutral-800 border border-[#ff0]/30 shadow-sm rounded-xl p-6 lg:p-8 h-full ring-1 ring-neutral-700 hover:ring-[#ff0]/50 transition-shadow duration-300"> {/* Added highlight border/ring & h-full */}
+                    <div className="flex flex-col bg-neutral-900 border border-[#ff0]/30 shadow-sm rounded-xl p-6 lg:p-8 h-full ring-1 ring-neutral-700 hover:ring-[#ff0]/50 transition-shadow duration-300"> {/* Added highlight border/ring & h-full */}
                         <h3 className="text-lg font-semibold text-white mb-4">
                             Partnering with Preline Agency...
                         </h3>

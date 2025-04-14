@@ -35,10 +35,10 @@ const TestimonialsGrid = () => {
     // module.exports = { images: { remotePatterns: [{ protocol: 'https', hostname: 'images.unsplash.com' }] } };
 
     return (
-        <div className="bg-neutral-900">
+        <div className="">
             <div className="max-w-5xl px-4 xl:px-0 py-10 lg:py-20 mx-auto">
                 {/* Title */}
-                <div className="max-w-3xl mb-10 lg:mb-14">
+                <div className="max-w-3xl mb-10 lg:mb-14 mx-auto text-center">
                     <h2 className="text-white font-semibold text-2xl md:text-4xl md:leading-tight">Client experiences</h2>
                     <p className="mt-1 text-neutral-400">Hear directly from those who've partnered with us and achieved remarkable results.</p>
                 </div>
@@ -48,7 +48,7 @@ const TestimonialsGrid = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                     {testimonialData.map((testimonial) => (
                         // Testimonial Card
-                        <div key={testimonial.id} className="relative flex flex-col bg-neutral-800 border border-neutral-700 shadow-sm rounded-xl p-6 lg:p-8">
+                        <div key={testimonial.id} className="relative flex flex-col bg-neutral-900 border border-neutral-700 shadow-sm rounded-xl p-6 lg:p-8">
                             <QuoteIcon /> {/* Decorative quote icon */}
                             <div className="flex-grow pt-8"> {/* Add padding top to avoid overlap with quote icon */}
                                 <p className="text-lg lg:text-xl text-neutral-200 leading-relaxed">
