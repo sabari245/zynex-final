@@ -43,8 +43,8 @@ export default function HomePage() {
       <CaseStudies />
       <div className="bg-neutral-900 bg-linear-to-t from-black to-transparent">
         <ComparisonSection />
-        <TestimonialsGrid />
         <StatsSection />
+        <TestimonialsGrid />
       </div>
 
       {/* <div className="bg-neutral-900">
