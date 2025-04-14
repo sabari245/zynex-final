@@ -7,6 +7,8 @@ import StatsSection from "@/components/StatsSection";
 import ApproachSection from "@/components/ApproachSection";
 import ContactForm from "@/components/ContactForm"; // ContactForm includes its own title etc.
 import FAQAccordion from "@/components/FAQAccordion"; // Adjust import path if needed
+import TestimonialsGrid from "@/components/TestimonialsGrid";
+import ComparisonSection from "@/components/ComparisonSection";
 
 // Define your FAQ data
 const faqItems = [
@@ -39,7 +41,9 @@ export default function HomePage() {
       <HeroSection />
       <ClientLogos />
       <CaseStudies />
-      <Testimonials />
+      <ComparisonSection />
+      {/* <Testimonials /> */}
+      <TestimonialsGrid />
       <StatsSection />
 
       {/* <div className="bg-neutral-900">
