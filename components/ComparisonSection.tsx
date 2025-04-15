@@ -1,6 +1,7 @@
 // components/ComparisonSection.tsx
 import React from 'react';
 import Link from 'next/link'; // For the CTA button
+import { XIcon, CheckIcon } from './SvgPatterns/logo';
 
 // Local data for comparison points
 const withoutUsPoints = [
@@ -19,23 +20,6 @@ const withUsPoints = [
     "Competitive edge & industry leadership",
 ];
 
-// SVG Icons (defined locally for clarity)
-const XIcon = () => (
-    <svg className="shrink-0 mt-0.5 size-5 text-neutral-500" // Dull gray color
-        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 6 6 18" />
-        <path d="m6 6 12 12" />
-    </svg>
-);
-
-const CheckIcon = () => (
-    <svg className="shrink-0 mt-0.5 size-5 text-[#ff0]" // Primary theme color
-        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"> {/* Note: Stroke width 3 for bolder check */}
-        <polyline points="20 6 9 17 4 12" />
-    </svg>
-);
 
 
 const ComparisonSection = () => {

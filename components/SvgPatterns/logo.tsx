@@ -38,4 +38,27 @@ function GitlabLogo() {
     );
 }
 
-export { ChimpmailLogo, ShopifyLogo, GitlabLogo };
+const QuoteIcon = () => (
+    <svg className="absolute top-6 start-6 size-10 text-neutral-700" width="40" height="40" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M7.414 1.414a.5.5 0 0 0-.707 0l-6 6a.5.5 0 0 0 .707.707L7.414 2.121a.5.5 0 0 0 0-.707zm5 0a.5.5 0 0 0-.707 0l-6 6a.5.5 0 0 0 .707.707l6-6a.5.5 0 0 0 0-.707z" />
+        <path d="M7.414 7.414a.5.5 0 0 0-.707 0l-6 6a.5.5 0 0 0 .707.707L7.414 8.121a.5.5 0 0 0 0-.707zm5 0a.5.5 0 0 0-.707 0l-6 6a.5.5 0 0 0 .707.707l6-6a.5.5 0 0 0 0-.707z" />
+    </svg>
+);
+// SVG Icons (defined locally for clarity)
+const XIcon = () => (
+    <svg className="shrink-0 mt-0.5 size-5 text-neutral-500" // Dull gray color
+        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+    </svg>
+);
+
+const CheckIcon = () => (
+    <svg className="shrink-0 mt-0.5 size-5 text-[#ff0]" // Primary theme color
+        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"> {/* Note: Stroke width 3 for bolder check */}
+        <polyline points="20 6 9 17 4 12" />
+    </svg>
+);
+export { ChimpmailLogo, ShopifyLogo, GitlabLogo, QuoteIcon, XIcon, CheckIcon };

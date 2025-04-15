@@ -58,8 +58,8 @@ const CaseStudies = () => {
                             <GitlabLogo />
                             <div className="mt-5">
                                 <p className="font-semibold text-5xl text-white">70%</p>
-                                <h3 className="mt-5 font-medium text-lg text-white">Reduction in Overhead</h3>
-                                <p className="mt-1 text-neutral-400">Cut down on expensive monthly subscriptions and high transaction fees. On average, businesses save up to 70% in overhead costs by migrating to a custom solution.</p>
+                                <h3 className="mt-5 font-medium text-lg text-white">Reduction in Monthly Charges</h3>
+                                <p className="mt-1 text-neutral-400">Cut down on expensive monthly subscriptions and high transaction fees. On average, businesses save up to 70% in overhead costs by migrating to a custom e-commerce store.</p>
                             </div>
                         </div>
                         <p className="mt-auto">

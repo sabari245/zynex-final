@@ -1,6 +1,7 @@
 // components/TestimonialsGrid.tsx
 import React from 'react';
 import Image from 'next/image'; // For potential avatars
+import { QuoteIcon } from '@/components/SvgPatterns/logo';
 
 // Local data for the testimonials
 const testimonialData = [
@@ -22,12 +23,6 @@ const testimonialData = [
 ];
 
 // Helper component for the quote SVG for cleaner code
-const QuoteIcon = () => (
-    <svg className="absolute top-6 start-6 size-10 text-neutral-700" width="40" height="40" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M7.414 1.414a.5.5 0 0 0-.707 0l-6 6a.5.5 0 0 0 .707.707L7.414 2.121a.5.5 0 0 0 0-.707zm5 0a.5.5 0 0 0-.707 0l-6 6a.5.5 0 0 0 .707.707l6-6a.5.5 0 0 0 0-.707z" />
-        <path d="M7.414 7.414a.5.5 0 0 0-.707 0l-6 6a.5.5 0 0 0 .707.707L7.414 8.121a.5.5 0 0 0 0-.707zm5 0a.5.5 0 0 0-.707 0l-6 6a.5.5 0 0 0 .707.707l6-6a.5.5 0 0 0 0-.707z" />
-    </svg>
-);
 
 
 const TestimonialsGrid = () => {

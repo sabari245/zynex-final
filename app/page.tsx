@@ -10,6 +10,9 @@ import FAQAccordion from "@/components/FAQAccordion"; // Adjust import path if n
 import TestimonialsGrid from "@/components/TestimonialsGrid";
 import ComparisonSection from "@/components/ComparisonSection";
 import Projects from "@/components/Projects";
+import TestimonialComplexGrid from "@/components/TestimonialComplexGrid";
+import CaseStudySectionOne from "@/components/CaseStudySectionOne";
+import CaseStudySectionTwo from "@/components/CaseStudySectionTwo";
 
 // Define your FAQ data
 const faqItems = [
@@ -52,20 +55,11 @@ export default function HomePage() {
         <StatsSection />
         <TestimonialsGrid />
       </div>
-
-      {/* <div className="bg-neutral-900">
-        <div className="max-w-5xl px-4 xl:px-0 py-10 lg:py-20 mx-auto">
-          <div className="max-w-3xl mb-10 lg:mb-14">
-            <h2 className="text-white font-semibold text-2xl md:text-4xl md:leading-tight">Frequently Asked Questions</h2>
-            <p className="mt-1 text-neutral-400">Find answers to common questions about our services and process.</p>
-          </div>
-          <div className="max-w-3xl mx-auto"> 
-            <FAQAccordion />
-          </div>
-        </div>
-      </div> */}
+      <CaseStudySectionOne />
+      <CaseStudySectionTwo />
 
       <FAQAccordion />
+      <TestimonialComplexGrid />
 
       <ApproachSection />
       {/* The ContactForm component now includes the title and grid structure */}
