@@ -41,7 +41,7 @@ const ComparisonSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
 
                     {/* Card 1: Without Us (The Old Way) */}
-                    <div className="flex flex-col bg-neutral-900 border border-neutral-700 shadow-sm rounded-xl px-6 lg:p-8 h-full"> {/* Added h-full */}
+                    <div className="flex flex-col bg-neutral-900 border border-neutral-700 shadow-sm rounded-xl p-6 lg:p-8 h-full"> {/* Added h-full */}
                         <h3 className="text-lg font-semibold text-neutral-300 mb-4">
                             Sticking to the Status Quo...
                         </h3>
