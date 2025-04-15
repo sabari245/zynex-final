@@ -110,7 +110,7 @@ const TestimonialComplexGrid = () => {
                             <div className="flex flex-col bg-neutral-800 border-2 border-neutral-700 hover:border-[#ff0]/50 transition-colors shadow-sm rounded-xl p-5 lg:p-6 h-full"> {/* Slightly reduced padding */}
                                 {/* Quote */}
                                 <blockquote className="flex-grow mb-4">
-                                    <p className="text-base lg:text-md text-neutral-300 leading-relaxed">
+                                    <p className="text-base lg:text-md text-neutral-200 leading-relaxed">
                                         "{testimonial.quote}" {/* Added quotes */}
                                     </p>
                                 </blockquote>
