@@ -2,14 +2,15 @@
 "use client"; // Required for useState and event handlers
 
 import React, { useState, useMemo } from "react";
-import Image from "next/image";
+// Removed Image import as it's not used in the provided UI structure
+// import Image from "next/image";
 
 // Interface for individual FAQ items (kept locally)
 interface AccordionItemProps {
   id: number | string; // Unique identifier
   question: string;
-  answer: string | React.ReactNode;
-  defaultOpen?: boolean;
+  answer: string;
+  defaultOpen?: boolean; // We'll use this only for INITIAL state
 }
 
 // FAQ data defined directly within the component
@@ -23,51 +24,52 @@ const faqItemsData: AccordionItemProps[] = [
   {
     id: 2,
     question: "How does the theme switching work?",
-    answer:
-      "The theme (light/dark/auto) is initially set based on your localStorage preference ('hs_theme') or your operating system's setting. An inline script applies the correct theme class (dark or light) to the HTML tag before the page renders to prevent flickering. You can add UI elements later to manually change the theme preference stored in localStorage.",
-    defaultOpen: true,
+    answer: "The theme (light/dark/auto) is initially set based on your localStorage preference ('hs_theme') or your OS setting. An inline script applies the correct theme class (dark or light) to the <html> tag before page render to prevent flickering.",
+    defaultOpen: true, // This one will be open initially
   },
   {
     id: 3,
     question: "What technologies are used?",
     answer:
-      "This template is built with Next.js (App Router), React, Tailwind CSS, and utilizes the Preline UI component library for interactive elements like accordions, dropdowns, and navigation collapse.",
+      "This template is built with Next.js (App Router), React, Tailwind CSS, and utilizes the Preline UI component library for styling and base attributes.",
   },
   {
     id: 4,
-    question: "Is Preline UI required?",
+    question: "Is Preline UI's JS required?",
     answer:
-      "Yes, the interactive components like this accordion, the header dropdowns, and the mobile navigation toggle rely on the Preline UI JavaScript library (preline.js) to function correctly.",
+      "While Preline UI's CSS/classes are used for styling, the open/close logic in this component is now managed by React's useState for reliable interactivity within the Next.js app.",
+  },
+  {
+    id: 5,
+    question: "Is Preline UI's JS required?",
+    answer:
+      "While Preline UI's CSS/classes are used for styling, the open/close logic in this component is now managed by React's useState for reliable interactivity within the Next.js app.",
   },
 ];
 
 const FAQSection = () => {
-  // State to track which items are open. Key is the item's id.
-  const initialOpenState = useMemo(() => {
-    return faqItemsData.reduce((acc, item) => {
-      if (item.defaultOpen) {
-        acc[item.id] = true;
-      }
-      return acc;
-    }, {} as Record<string | number, boolean>);
-  }, []); // Empty dependency array means this runs only once on mount
-
-  const [openItems, setOpenItems] =
-    useState<Record<string | number, boolean>>(initialOpenState);
+  // State: Store the ID of the currently open item, or null if none are open.
+  const [openItemId, setOpenItemId] = useState<string | number | null>(() => {
+    // Calculate initial state based on defaultOpen
+    const defaultOpenItem = faqItemsData.find(item => item.defaultOpen);
+    return defaultOpenItem ? defaultOpenItem.id : null;
+  });
 
   // Function to toggle an item's open state
+  // If the clicked item is already open, close it (set state to null).
+  // If a different item is clicked, open it (set state to its id).
   const handleToggle = (id: string | number) => {
-    setOpenItems((prev) => ({
-      ...prev, // Keep state of other items
-      [id]: !prev[id], // Toggle the clicked item
-    }));
+    setOpenItemId(prevOpenId => (prevOpenId === id ? null : id));
   };
 
   return (
+    // Keep the outer structure and styling as you provided
     <div className="bg-neutral-900">
       <div className="max-w-5xl px-4 xl:px-0 py-10 lg:py-20 mx-auto">
+        {/* Using the exact layout structure from your update */}
         <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
           <div className="grid md:grid-cols-5 gap-10">
+            {/* Left Column: Title */}
             <div className="md:col-span-2">
               <div className="max-w-xs">
                 <h2 className="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">
@@ -80,332 +82,75 @@ const FAQSection = () => {
                 </p>
               </div>
             </div>
+            {/* End Left Column */}
 
+            {/* Right Column: Accordion */}
             <div className="md:col-span-3">
+              {/* Keep Preline's group class and dividers */}
               <div className="hs-accordion-group divide-y divide-gray-200 dark:divide-neutral-700">
-                <div
-                  className="hs-accordion pb-3 active"
-                  id="hs-basic-with-title-and-arrow-stretched-heading-one"
-                >
-                  <button
-                    className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-hidden focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                    aria-expanded="true"
-                    aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-one"
-                  >
-                    Can I cancel at anytime?
-                    <svg
-                      className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                    <svg
-                      className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m18 15-6-6-6 6" />
-                    </svg>
-                  </button>
-                  <div
-                    id="hs-basic-with-title-and-arrow-stretched-collapse-one"
-                    className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
-                    role="region"
-                    aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-one"
-                  >
-                    <p className="text-gray-600 dark:text-neutral-400">
-                      Yes, you can cancel anytime no questions are asked while
-                      you cancel but we would highly appreciate if you will give
-                      us some feedback.
-                    </p>
-                  </div>
-                </div>
+                {faqItemsData.map((item, idx) => {
+                  // Determine if the CURRENT item is the one stored in state
+                  const isOpen = openItemId === item.id;
 
-                <div
-                  className="hs-accordion pt-6 pb-3"
-                  id="hs-basic-with-title-and-arrow-stretched-heading-two"
-                >
-                  <button
-                    className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-hidden focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                    aria-expanded="false"
-                    aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-two"
-                  >
-                    My team has credits. How do we use them?
-                    <svg
-                      className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                  return (
+                    // Keep the item container structure and conditional padding
+                    <div
+                      key={item.id}
+                      // Apply 'active' class based on React state for Preline CSS targeting
+                      className={`hs-accordion${idx === 0 ? " pt-0 pb-3" : " pt-6 pb-3"}${isOpen ? " active" : ""}`}
+                      id={`hs-basic-with-title-and-arrow-stretched-heading-${item.id}`}
                     >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                    <svg
-                      className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m18 15-6-6-6 6" />
-                    </svg>
-                  </button>
-                  <div
-                    id="hs-basic-with-title-and-arrow-stretched-collapse-two"
-                    className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                    role="region"
-                    aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-two"
-                  >
-                    <p className="text-gray-600 dark:text-neutral-400">
-                      Once your team signs up for a subscription plan. This is
-                      where we sit down, grab a cup of coffee and dial in the
-                      details.
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className="hs-accordion pt-6 pb-3"
-                  id="hs-basic-with-title-and-arrow-stretched-heading-three"
-                >
-                  <button
-                    className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-hidden focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                    aria-expanded="false"
-                    aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-three"
-                  >
-                    How does Preline's pricing work?
-                    <svg
-                      className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                    <svg
-                      className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m18 15-6-6-6 6" />
-                    </svg>
-                  </button>
-                  <div
-                    id="hs-basic-with-title-and-arrow-stretched-collapse-three"
-                    className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                    role="region"
-                    aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-three"
-                  >
-                    <p className="text-gray-600 dark:text-neutral-400">
-                      Our subscriptions are tiered. Understanding the task at
-                      hand and ironing out the wrinkles is key.
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className="hs-accordion pt-6 pb-3"
-                  id="hs-basic-with-title-and-arrow-stretched-heading-four"
-                >
-                  <button
-                    className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-hidden focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                    aria-expanded="false"
-                    aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-four"
-                  >
-                    How secure is Preline?
-                    <svg
-                      className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                    <svg
-                      className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m18 15-6-6-6 6" />
-                    </svg>
-                  </button>
-                  <div
-                    id="hs-basic-with-title-and-arrow-stretched-collapse-four"
-                    className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                    role="region"
-                    aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-four"
-                  >
-                    <p className="text-gray-600 dark:text-neutral-400">
-                      Protecting the data you trust to Preline is our first
-                      priority. This part is really crucial in keeping the
-                      project in line to completion.
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className="hs-accordion pt-6 pb-3"
-                  id="hs-basic-with-title-and-arrow-stretched-heading-five"
-                >
-                  <button
-                    className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-hidden focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                    aria-expanded="false"
-                    aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-five"
-                  >
-                    How do I get access to a theme I purchased?
-                    <svg
-                      className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                    <svg
-                      className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m18 15-6-6-6 6" />
-                    </svg>
-                  </button>
-                  <div
-                    id="hs-basic-with-title-and-arrow-stretched-collapse-five"
-                    className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                    role="region"
-                    aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-five"
-                  >
-                    <p className="text-gray-600 dark:text-neutral-400">
-                      If you lose the link for a theme you purchased, don't
-                      panic! We've got you covered. You can login to your
-                      account, tap your avatar in the upper right corner, and
-                      tap Purchases. If you didn't create a login or can't
-                      remember the information, you can use our handy Redownload
-                      page, just remember to use the same email you originally
-                      made your purchases with.
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  className="hs-accordion pt-6 pb-3"
-                  id="hs-basic-with-title-and-arrow-stretched-heading-six"
-                >
-                  <button
-                    className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-hidden focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                    aria-expanded="false"
-                    aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-six"
-                  >
-                    Upgrade License Type
-                    <svg
-                      className="hs-accordion-active:hidden block shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                    <svg
-                      className="hs-accordion-active:block hidden shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="m18 15-6-6-6 6" />
-                    </svg>
-                  </button>
-                  <div
-                    id="hs-basic-with-title-and-arrow-stretched-collapse-six"
-                    className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                    role="region"
-                    aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-six"
-                  >
-                    <p className="text-gray-600 dark:text-neutral-400">
-                      There may be times when you need to upgrade your license
-                      from the original type you purchased and we have a
-                      solution that ensures you can apply your original purchase
-                      cost to the new license purchase.
-                    </p>
-                  </div>
-                </div>
+                      <button
+                        type="button" // Set type explicitly
+                        className="hs-accordion-toggle group pb-3 inline-flex items-center justify-between gap-x-3 w-full md:text-lg font-semibold text-start text-gray-800 rounded-lg transition hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
+                        // aria-expanded reflects the React state
+                        aria-expanded={isOpen}
+                        aria-controls={`hs-basic-with-title-and-arrow-stretched-collapse-${item.id}`}
+                        // onClick now calls our React state handler
+                        onClick={() => handleToggle(item.id)}
+                      >
+                        {item.question}
+                        {/* Icon: Rotation based on React state */}
+                        <svg
+                          className={`transition-transform duration-300 shrink-0 size-5 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400 ${isOpen ? "rotate-180" : ""}`} // Rotate class based on isOpen
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </button>
+                      <div
+                        id={`hs-basic-with-title-and-arrow-stretched-collapse-${item.id}`}
+                        // Content visibility based on React state
+                        className={`hs-accordion-content w-full overflow-hidden transition-[height] duration-300${isOpen ? "" : " hidden"}`} // Hidden class based on !isOpen
+                        role="region"
+                        aria-labelledby={`hs-basic-with-title-and-arrow-stretched-heading-${item.id}`}
+                      // Optional: Explicit height for transition (might not be needed if Preline handles it via classes)
+                      // style={{ height: isOpen ? undefined : '0px' }}
+                      >
+                        {/* Answer content */}
+                        <div className="text-gray-600 dark:text-neutral-400 pb-3"> {/* Added pb-3 to match original likely intent */}
+                          {/* Render string or ReactNode */}
+                          {typeof item.answer === 'string' ? (
+                            <p>{item.answer}</p>
+                          ) : (
+                            <div>{item.answer}</div> // Simple div wrapper for ReactNode
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
+            {/* End Right Column */}
           </div>
         </div>
       </div>
