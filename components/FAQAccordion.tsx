@@ -17,33 +17,33 @@ interface AccordionItemProps {
 const faqItemsData: AccordionItemProps[] = [
   {
     id: 1,
-    question: "What is Preline Agency?",
+    question: "How long does it take to build my new store?",
     answer:
-      "Preline Agency is a creative hub specializing in transforming conceptual visions into tangible realities through design, artistry, and technological innovation. We focus on web design and development for agencies and studios.",
+      "For a typical store, we need about 2 to 2½ months. That time lets us learn your market, design a great layout, write clear product descriptions, migrate your items, and launch your site smoothly.",
   },
   {
     id: 2,
-    question: "How does the theme switching work?",
-    answer: "The theme (light/dark/auto) is initially set based on your localStorage preference ('hs_theme') or your OS setting. An inline script applies the correct theme class (dark or light) to the <html> tag before page render to prevent flickering.",
+    question: "Will you handle migrating my store?",
+    answer: "Yes—we migrate your entire store for free. Even for large catalogs, migration usually takes no more than 1 week.",
     defaultOpen: true, // This one will be open initially
   },
   {
     id: 3,
-    question: "What technologies are used?",
+    question: "Will I get a dashboard and inventory management system?",
     answer:
-      "This template is built with Next.js (App Router), React, Tailwind CSS, and utilizes the Preline UI component library for styling and base attributes.",
+      "Absolutely. Every custom store includes a dedicated dashboard with features like user-account management, inventory tracking, location settings, item creation, POS integration, and more.",
   },
   {
     id: 4,
-    question: "Is Preline UI's JS required?",
+    question: "Will my site show up on Google and other search engines?",
     answer:
-      "While Preline UI's CSS/classes are used for styling, the open/close logic in this component is now managed by React's useState for reliable interactivity within the Next.js app.",
+      "Yes. Our SEO and copywriting experts make sure your site loads quickly and follows best practices so it's indexed easily. That means customers can find you when they search online.",
   },
   {
     id: 5,
-    question: "Is Preline UI's JS required?",
+    question: "Do you provide support for marketing my store?",
     answer:
-      "While Preline UI's CSS/classes are used for styling, the open/close logic in this component is now managed by React's useState for reliable interactivity within the Next.js app.",
+      "Yes. We offer marketing support across platforms like Meta (Facebook & Instagram) and Google to help you reach more customers and grow your sales.",
   },
 ];
 
