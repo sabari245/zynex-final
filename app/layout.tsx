@@ -9,30 +9,10 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Agency Tailwind CSS Template | Preline UI, crafted with Tailwind CSS',
-  description: 'Crafted for agencies and studios specializing in web design and development.',
+  title: 'Zynex Solutions - Helping people sell more online',
+  description: 'At Zynex Solutions, we help online store owners convert more with our expertise in eCommerce, digital marketing, and ...',
   robots: 'max-snippet:-1, max-image-preview:large, max-video-preview:-1',
-  metadataBase: new URL('https://preline.co'),
-  alternates: {
-    canonical: '/',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@preline',
-    creator: '@preline',
-    title: 'Agency Tailwind CSS Template | Preline UI, crafted with Tailwind CSS',
-    description: 'Crafted for agencies and studios specializing in web design and development.',
-    images: ['/assets/img/og-image.png'],
-  },
-  openGraph: {
-    title: 'Agency Tailwind CSS Template | Preline UI, crafted with Tailwind CSS',
-    description: 'Crafted for agencies and studios specializing in web design and development.',
-    url: '/',
-    siteName: 'Preline',
-    images: [{ url: '/assets/img/og-image.png' }],
-    locale: 'en_US',
-    type: 'website',
-  },
+  metadataBase: new URL('https://zynexsolutions.com'),
 };
 
 export const viewport: Viewport = {

@@ -1,30 +1,75 @@
 // components/ContactForm.tsx
 'use client'; // Needed for form state/handling and potentially Preline's auto-height textarea
 
-import React from 'react';
-// Import useState if you manage form state in React
-// import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+    ID,
+    account,
+    client,
+    ensureAuthSession,
+} from "@/lib/appwrite";
+import { Databases } from "appwrite";
+
+// Initialize the database client
+const databases = new Databases(client);
+const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!;
+const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID!;
 
 const ContactForm = () => {
-    // Example state management (optional, could use FormData or a library)
-    // const [formData, setFormData] = useState({
-    //   name: '',
-    //   email: '',
-    //   company: '',
-    //   phone: '',
-    //   message: '',
-    // });
+    // Form state and auto-save refs
+    const [formData, setFormData] = useState({ name: '', email: '', company: '', phone: '', message: '' });
+    const lastSavedRef = useRef(formData);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
 
-    // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    //   const { id, value } = e.target;
-    //   setFormData(prev => ({ ...prev, [id.replace('hs-tac-input-','').replace('hs-tac-','')] : value }));
-    // };
+    // Run authentication check on component mount
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const session = await ensureAuthSession();
+                setUserId(session.$id);
+            } catch (error) {
+                console.error('Authentication failed:', error);
+            }
+        };
+        checkAuth();
+    }, []);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        const key = id.replace('hs-tac-input-', '').replace('hs-tac-', '');
+        setFormData(prev => ({ ...prev, [key]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log('Form submitted');
-        // console.log(formData);
+
+        // Check if any field has data
+        const hasData = Object.values(formData).some(value => value.trim() !== '');
+        if (!hasData || !userId) {
+            return;
+        }
+
+        try {
+            const documentData = {
+                user_id: userId,
+                created_at: new Date().toISOString(),
+                data: JSON.stringify(formData)
+            };
+
+            const response = await databases.createDocument(
+                DATABASE_ID,
+                COLLECTION_ID,
+                ID.unique(),
+                documentData
+            );
+
+            console.log('Form submitted successfully:', response);
+            // Clear form after successful submission
+            setFormData({ name: '', email: '', company: '', phone: '', message: '' });
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
     };
 
     return (
@@ -51,7 +96,7 @@ const ContactForm = () => {
                     [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2
                     autofill:pt-6 autofill:pb-2"
                                     placeholder="Name"
-                                // value={formData.name} onChange={handleChange} // If using React state
+                                    value={formData.name} onChange={handleChange}
                                 />
                                 <label
                                     htmlFor="hs-tac-input-name"
@@ -75,7 +120,7 @@ const ContactForm = () => {
                     [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2
                     autofill:pt-6 autofill:pb-2"
                                     placeholder="Email"
-                                // value={formData.email} onChange={handleChange}
+                                    value={formData.email} onChange={handleChange}
                                 />
                                 <label
                                     htmlFor="hs-tac-input-email"
@@ -99,7 +144,7 @@ const ContactForm = () => {
                     [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2
                     autofill:pt-6 autofill:pb-2"
                                     placeholder="Company"
-                                // value={formData.company} onChange={handleChange}
+                                    value={formData.company} onChange={handleChange}
                                 />
                                 <label
                                     htmlFor="hs-tac-input-company"
@@ -122,7 +167,7 @@ const ContactForm = () => {
                     [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2
                     autofill:pt-6 autofill:pb-2"
                                     placeholder="Phone"
-                                // value={formData.phone} onChange={handleChange}
+                                    value={formData.phone} onChange={handleChange}
                                 />
                                 <label
                                     htmlFor="hs-tac-input-phone"
@@ -146,7 +191,7 @@ const ContactForm = () => {
                     autofill:pt-6 autofill:pb-2"
                                     placeholder="Tell us about your project"
                                     data-hs-textarea-auto-height // Preline attribute for auto-height
-                                // value={formData.message} onChange={handleChange}
+                                    value={formData.message} onChange={handleChange}
                                 ></textarea>
                                 <label
                                     htmlFor="hs-tac-message"
